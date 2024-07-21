@@ -137,3 +137,19 @@ Finalizada la instalación veremos que nos ha creado un archivo llamado `.eslint
 
 ![config ESLint](./src/assets/eslint/01.config.png)
 
+## Instalando dependencia de Prettier en Angular
+
+En nuestro proyecto de Angular, instalaremos la dependencia de [prettier](https://prettier.io/docs/en/install) con el siguiente comando:
+
+```bash
+$ npm install --save-dev --save-exact prettier
+```
+
+En el archivo `package.json` agregaremos el script siguiente para ejecutar `prettier`:
+
+```json
+"scripts": {
+  ...
+  "format": "prettier --write \"./src/**/*.{ts,json,html}\""
+}
+```
