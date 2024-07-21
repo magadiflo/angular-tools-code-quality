@@ -89,9 +89,20 @@ Como developer hago mi `git commit`, la herramienta `Husky` detectará qué `hoo
 
 Es una librería que detecta qué archivos han sido modificados para que se apliquen únicamente a ellos las reglas que nosotros indiquemos: `format`, `linter`, etc. En otras palabras, si no usamos esta librería de `LintStaged` las reglas que hayamos definido `format`, `linter`, etc. se aplicarán a todo el proyecto.
 
-## Configurando Prettier
+---
 
-### Establecer Prettier como formateador por defecto
+# Configurando VS Code y Angular para usar herramientas de calidad de código
+
+---
+
+## Extensiones en VS Code
+
+Para el tema de calidad del código necesitamos instalar las siguientes extensiones en nuestro VS Code:
+
+- Prettier - Code formatter
+- ESLint
+
+## Estableciendo Prettier como formateador por defecto
 
 Primero debemos instalar la dependencia de `Prettier` en nuestro VS Code. Luego debemos establecer Prettier como formateador por defecto de la siguiente manera.
 
@@ -107,9 +118,22 @@ Primero debemos instalar la dependencia de `Prettier` en nuestro VS Code. Luego 
 
 ![Step 3](./src/assets/prettier/03.selected-default-formatter.png)
 
-### Activar Configuración Requerida de Prettier
+## Activar Configuración Requerida de Prettier
 
 `Prettier: Require Config`, requiere un archivo de configuración `Prettier` para formatear. Esta configuración le dice a VS Code que formatee el código del proyecto en base a un archivo de configuración de `Prettier` llamada `.prettierrc` (si es que lo tiene) que estará ubicada en la raíz del proyecto. Este archivo de configuración `.prettierrc` tendrá el `.json` que copiamos de la página de playground de prettier.
 
 ![Require Config](./src/assets/prettier/04.check-require-config.png)
+
+
+## Instalando dependencia de ESLint en Angular
+
+En nuestro proyecto de Angular, instalaremos la dependencia de [angular-eslint](https://github.com/angular-eslint/angular-eslint) con el siguiente comando:
+
+```bash
+$ ng add @angular-eslint/schematics
+```
+
+Finalizada la instalación veremos que nos ha creado un archivo llamado `.eslintrc.json` en nuestra aplicación de `Angular 17`. Ahora, si estuvieramos usando la `versión 18 de Angular`, el archivo que crearía sería un `eslint.config.js`. Ambos representan lo mismo, solo que en una versión está en `json` y en la otra en un archivo de `JavaScript`.
+
+![config ESLint](./src/assets/eslint/01.config.png)
 
