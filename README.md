@@ -125,7 +125,7 @@ Primero debemos instalar la dependencia de `Prettier` en nuestro VS Code. Luego 
 ![Require Config](./src/assets/prettier/04.check-require-config.png)
 
 
-## Instalando dependencia de ESLint en Angular
+## [Instalando dependencia de ESLint en Angular](https://github.com/angular-eslint/angular-eslint)
 
 En nuestro proyecto de Angular, instalaremos la dependencia de [angular-eslint](https://github.com/angular-eslint/angular-eslint) con el siguiente comando:
 
@@ -137,7 +137,7 @@ Finalizada la instalación veremos que nos ha creado un archivo llamado `.eslint
 
 ![config ESLint](./src/assets/eslint/01.config.png)
 
-## Instalando dependencia de Prettier en Angular
+## [Instalando dependencia de Prettier en Angular](https://prettier.io/docs/en/install)
 
 En nuestro proyecto de Angular, instalaremos la dependencia de [prettier](https://prettier.io/docs/en/install) con el siguiente comando:
 
@@ -152,4 +152,52 @@ En el archivo `package.json` agregaremos el script siguiente para ejecutar `pret
   ...
   "format": "prettier --write \"./src/**/*.{ts,json,html}\""
 }
+```
+
+## [Instalando dependencia de Husky en Angular](https://typicode.github.io/husky/get-started.htmly)
+
+En nuestro proyecto de Angular, instalaremos la dependencia de [husky](https://typicode.github.io/husky/get-started.htmly) con el siguiente comando:
+
+```bash
+$ npm install --save-dev husky
+```
+Luego que hemos instalado la dependencia, ejecutamos el comando init de husky para poder hacer uso de los `Git Hooks`. El comando init simplifica la configuración de Husky en un proyecto. Crea un script de confirmación previa en `.husky/` y actualiza el script de preparación en `package.json`. Se pueden realizar modificaciones más adelante para adaptarlas a su flujo de trabajo.
+
+```bash
+$ npx husky init
+```
+
+Luego de haber ejecutado el comando init, veremos que se nos habrá creado el directorio `.husky` conteniendo un `Git Hook`, en este caso el `pre-commit`.
+
+![git hook](./src/assets/husky/01.git-hooks.png)
+
+## [Instalando dependencia de Lint-Staged en Angular](https://github.com/lint-staged/lint-staged)
+
+Instalamos la dependencia de [lint-staged](https://github.com/lint-staged/lint-staged) a través del siguiente comando:
+
+```bash
+$ npm install --save-dev lint-staged
+```
+
+### [Configurando lint-staged](https://github.com/lint-staged/lint-staged?tab=readme-ov-file#configuration)
+
+`Lint-staged` puede ser configurado de muchas formas. En nuestro caso lo haremos de la siguiente manera. 
+
+- En la raíz del proyecto crearemos el archivo `.lintstagedrc.json`
+- A continuación debemos agregar la siguiente configuración en dicho archivo.
+
+  ```json
+  {
+    "*.ts": ["prettier --write", "eslint"],
+    "*.html": ["eslint", "prettier --write"],
+    "*.scss": "prettier --write"
+  }
+  ```
+
+### Configurando Husky con lint-staged
+
+A continuación agregamos el siguiente comando en el archivo `pre-commit` del `Git Hook`:
+
+```
+npx lint-staged
 ```
