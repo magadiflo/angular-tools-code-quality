@@ -201,3 +201,51 @@ A continuación agregamos el siguiente comando en el archivo `pre-commit` del `G
 ```
 npx lint-staged
 ```
+
+El comando anterior utilizará las configuraciones definidas en el archivo `.lintstagedrc.json`.
+
+## Reiniciar Visual Studio Code para aplicar cambios
+
+Es importante que luego de que instalemos y configuremos la aplicación con las distintas herramientas de `code quality` reiniciemos el editor de `VS Code` para que se apliquen los cambios.
+
+## Probando ejecución de herramientas
+
+Realicemos alguna modificación en nuestro componente `app.component`:
+
+```html
+<h1>{{ title }}</h1>
+<img src="./assets/angular_icon_gradient.gif" alt="" class="img-main">
+<router-outlet />
+```
+
+```typescript
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss',
+})
+export class AppComponent {
+  public title = 'Herramientas de Angular para Calidad de Código';
+  public money: any = 50;
+}
+```
+
+Suponiendo que ya hemos finalizado nuestras modificaciones, llega el momento de realizar un commit al repositorio, así que cuando realizamos dicho commit, nuestro `Git Hook` `pre-commit` se ejecutará, e internamente ejecutará las herramientas de `Prettier` y `ESLint` para formatear y verificar si el código está cumpliendo las reglas definidas.
+
+Al realizar el commit de las modificaciones realizadas al componente, vemos el siguiente resultado:
+
+![run-tools](./src/assets/husky/02.run-tools.png)
+
+Como resultado `no se realizó el commit`, dado que `eslint` ha detectad fallas en el archivo `app.component.ts`, tal como se ve a continuación:
+
+![eslint - error](./src/assets/eslint/02.es-lint-error.png)
+
+Si damos click en `Quick Fix...` veremos una lista de posibles soluciones que se pueden aplicar de manera automática:
+
+![quick fix](./src/assets/eslint/03.quick-fix.png)
+
+Finalmente, vemos que en las nuevas versiones de Angular de Typescript se recomienta usar el `unknown` en reemplazo de `any`:
+
+![quick fix](./src/assets/eslint/04.fixed.png)

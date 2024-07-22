@@ -10,4 +10,5 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   public title = 'Herramientas de Angular para Calidad de Código';
+  public money: unknown = 50;
 }
