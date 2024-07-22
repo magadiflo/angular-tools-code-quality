@@ -249,3 +249,7 @@ Si damos click en `Quick Fix...` veremos una lista de posibles soluciones que se
 Finalmente, vemos que en las nuevas versiones de Angular de Typescript se recomienta usar el `unknown` en reemplazo de `any`:
 
 ![quick fix](./src/assets/eslint/04.fixed.png)
+
+Luego de haber solucionado todos los errores que se han detectado, volvemos a subir los cambios al repositorio, esta vez el `commit` pasará sin ningún problema.
+
+![commit successfull](./src/assets/husky/03.commit-successfull.png)
