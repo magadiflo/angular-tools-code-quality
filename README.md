@@ -57,7 +57,7 @@ Es una herramienta para identificar y corregir problemas en tu código Javascrip
 
 Al igual que prettier, `ESLint` también tiene su [playground](https://eslint.org/play/) donde podemos jugar buscando las configuraciones que necesitemos, aunque como se mencionó en el párrafo anterior, `ESLint` viene con configuraciones predefinidas.
 
-## Husky
+## [Husky](https://typicode.github.io/husky/get-started.htmly)
 
 Es una herramienta que permite ejecutar scripts de Git Hooks de forma sencilla. Los Git Hooks son scripts que Git ejecuta antes o después de ciertos eventos, como commits, push o merges.
 
@@ -81,7 +81,7 @@ Como developer hago mi `git commit`, la herramienta `Husky` detectará qué `hoo
 
 ![flow husky](./src/assets/03.flow-husky.png)
 
-## LintStaged
+## [LintStaged](https://github.com/lint-staged/lint-staged)
 
 Es una librería que detecta qué archivos han sido modificados para que se apliquen únicamente a ellos las reglas que nosotros indiquemos: `format`, `linter`, etc. En otras palabras, si no usamos esta librería de `LintStaged` las reglas que hayamos definido `format`, `linter`, etc. se aplicarán a todo el proyecto.
 
@@ -124,8 +124,12 @@ Primero debemos instalar la dependencia de `Prettier` en nuestro VS Code. Luego 
 
 > En nuestro caso no hemos definido el archivo `.prettierrc` en el proyecto de Angular, por lo tanto, las reglas que aplicará `Prettier` para formatear el código será en base a las reglas que tenga definida la extensión de `Prettier` que instalamos en nuestro `VS Code`. Además, recordar que hemos sido explícitos al seleccionar a `Prettier` como formateador por defecto para el proyecto.
 
+---
+# Instalando Prettier y ESLint al proyecto de Angular
 
-## [Instalando dependencia de ESLint en Angular](https://github.com/angular-eslint/angular-eslint)
+---
+
+## [Instalando ESLint](https://github.com/angular-eslint/angular-eslint)
 
 En nuestro proyecto de Angular, instalaremos la dependencia de [angular-eslint](https://github.com/angular-eslint/angular-eslint) con el siguiente comando:
 
@@ -133,11 +137,35 @@ En nuestro proyecto de Angular, instalaremos la dependencia de [angular-eslint](
 $ ng add @angular-eslint/schematics
 ```
 
-Finalizada la instalación veremos que nos ha creado un archivo llamado `.eslintrc.json` en nuestra aplicación de `Angular 17`. Ahora, si estuvieramos usando la `versión 18 de Angular`, el archivo que crearía sería un `eslint.config.js`. Ambos representan lo mismo, solo que en una versión está en `json` y en la otra en un archivo de `JavaScript`.
+Luego de la instalación, en el `package.json` a parte de agregar las dependencias, se agregó automáticamente un script en el apartado de `scripts`:
+
+```json
+"scripts": {
+  ...
+  "lint": "ng lint",
+},
+```
+
+Además, veremos que nos ha creado un archivo llamado `.eslintrc.json` en nuestra aplicación de `Angular 17`. Ahora, si estuvieramos usando la `versión 18 de Angular`, el archivo que crearía sería un `eslint.config.js`. Ambos representan lo mismo, solo que en una versión está en `json` y en la otra en un archivo de `JavaScript`.
 
 ![config ESLint](./src/assets/eslint/01.config.png)
 
-## [Instalando dependencia de Prettier en Angular](https://prettier.io/docs/en/install)
+### Ejecutando manualmente ESLint
+
+Recordemos que cuando instalamos `ESLint` se nos agregó automáticamente un script en el `package.json`. Así que en este apartado ejecutaremos dicho script para poner en ejecución `ESLint` y verifique si tenemos algún error en nuestro proyecto.
+
+```bash
+M:\PROGRAMACION\DESARROLLO_ANGULAR\09.youtube_logi_dev\10.angular_para_el_trabajo\angular-tools-code-quality (main -> origin)
+$ ng lint
+
+Linting "angular-tools-code-quality"...
+
+All files pass linting.
+```
+
+Como observamos, no tenemos ningún error `todos los archivos han pasado la revisión de estilo`.
+
+## [Instalando Prettier](https://prettier.io/docs/en/install)
 
 En nuestro proyecto de Angular, instalaremos la dependencia de [prettier](https://prettier.io/docs/en/install) con el siguiente comando:
 
@@ -145,16 +173,50 @@ En nuestro proyecto de Angular, instalaremos la dependencia de [prettier](https:
 $ npm install --save-dev --save-exact prettier
 ```
 
-En el archivo `package.json` agregaremos el script siguiente para ejecutar `prettier`:
+Luego, manualmente, en el archivo `package.json` agregaremos el script siguiente para ejecutar `prettier`:
 
 ```json
 "scripts": {
   ...
-  "format": "prettier --write \"./src/**/*.{ts,json,html}\""
+  "format": "prettier --write \"./src/**/*.{ts,json,html,scss}\""
 }
 ```
 
-## [Instalando dependencia de Husky en Angular](https://typicode.github.io/husky/get-started.htmly)
+### Ejecutando manualmente Prettier
+
+Luego de agregar la dependencia de prettier y configurar el script manualmente, vamos a ejecutar precisamente el script para formatear todo nuestro proyecto usando prettier:
+
+```bash
+M:\PROGRAMACION\DESARROLLO_ANGULAR\09.youtube_logi_dev\10.angular_para_el_trabajo\angular-tools-code-quality (main -> origin)
+$ npm run format
+
+> angular-tools-code-quality@0.0.0 format
+> prettier --write "./src/**/*.{ts,json,html,scss}"
+
+src/app/app.component.html 86ms (unchanged)
+src/app/app.component.scss 50ms (unchanged)
+src/app/app.component.ts 111ms (unchanged)
+src/app/app.config.ts 13ms (unchanged)
+src/app/app.routes.ts 4ms (unchanged)
+src/index.html 16ms (unchanged)
+src/main.ts 11ms (unchanged)
+src/styles.scss 3ms (unchanged)
+```
+
+Como observamos, todos los archivos está correctamente formateados, por eso es que no se han producido cambios `(unchanged)`.
+
+## Reiniciar Visual Studio Code para aplicar cambios
+
+En `Visual Studio Code` cuando se instala una dependencia que tenga que ver con el `linter` o con el `formateo`, lo ideal sería reiniciar el editor para que los cambios se apliquen.
+
+---
+# Automatizando ejecución de Prettier y ESLint
+
+En los apartados de instalación de `Prettier` y `ESLint` al proyecto de Angular, nosotros como desarrolladores hemos ejecutado manualmente cada una de estas herramientas, pero la idea es que estas se ejecuten automáticamente, por ejemplo antes de realizar el commit. Esta característica nos la brinda `Husky` que es lo que veremos en este apartado.
+
+---
+
+## [Instalando Husky en Angular](https://typicode.github.io/husky/get-started.htmly)
 
 En nuestro proyecto de Angular, instalaremos la dependencia de [husky](https://typicode.github.io/husky/get-started.htmly) con el siguiente comando:
 
@@ -171,6 +233,42 @@ Luego de haber ejecutado el comando init, veremos que se nos habrá creado el di
 
 ![git hook](./src/assets/husky/01.git-hooks.png)
 
+Los comandos que vamos a colocar en el archivo `pre-commit` deberían existir en los `scripts` del `package.json`, por ejemplo, nosotros tenemos los siguientes comandos en el `scripts` del `package.json`:
+
+```json
+"scripts": {
+  "ng": "ng",
+  "start": "ng serve",
+  "build": "ng build",
+  "watch": "ng build --watch --configuration development",
+  "test": "ng test",
+  "lint": "ng lint",
+  "format": "prettier --write \"./src/**/*.{ts,json,html,scss}\"",
+  "prepare": "husky"
+},
+```
+
+Por lo que, fácilmente podríamos definir el siguiente comando en el archivo `pre-commit`:
+
+```bash
+npm run format
+```
+
+Ahora, supongamos que tenemos instalado una librería y queremos ejecutarla, además conocemos el comando con el que se ejecuta dicha librería `(ng lint --fix)`, en ese caso, no es necesario tenerlo en la sección de `scripts`, simplemente colocándolo en el archivo `pre-commit`, el comando va a ser reconocido. Por ejemplo:
+
+```bash
+npm run format
+ng lint --fix
+```
+
+El primer comando que es el `format` está en los `scripts`, mientras que el segundo comando no está, es decir, podríamos haberlo usado el `npm run lint` porque `lint` sí está como clave en los `scripts` y este ejecutaría el comando `ng lint`, pero para demostrar que se puede ejecutar comandos que no están en los scripts es que colocamos directamente el `ng lint --fix` (--fix, que `intente` solucionar si encuentra algún error, solo si puede solucionarlo).
+
+> Luego, si intentamos hacer un `commit` en `automático` se ejecutarán los comandos definidos en el archivo `pre-commit`.
+
+**IMPORTANTE**
+
+> `La primera vez` sí deberíamos ejecutar los comandos manualmente, por separado (`npm run format` y `ng lint`) para que, tanto el formateo como la corrección del código se aplique a todo el proyecto. Las siguientes veces, dejaremos que en automático `husky` ejecute los comandos que definamos en el archivo `pre-commit`, pero nos vamos a apoyar de la librería `lint-staged` para que ejecute el `formateo` y el `lint` únicamente a aquellos archivos que han cambiado.
+
 ## [Instalando dependencia de Lint-Staged en Angular](https://github.com/lint-staged/lint-staged)
 
 Instalamos la dependencia de [lint-staged](https://github.com/lint-staged/lint-staged) a través del siguiente comando:
@@ -183,8 +281,7 @@ $ npm install --save-dev lint-staged
 
 `Lint-staged` puede ser configurado de muchas formas. En nuestro caso lo haremos de la siguiente manera. 
 
-- En la raíz del proyecto crearemos el archivo `.lintstagedrc.json`
-- A continuación debemos agregar la siguiente configuración en dicho archivo.
+- En la raíz del proyecto crearemos el archivo `.lintstagedrc.json` con las siguientes configuraciones:
 
   ```json
   {
@@ -194,19 +291,17 @@ $ npm install --save-dev lint-staged
   }
   ```
 
+En el archivo `json` anterior estamos diciendo, por ejemplo que para los archivos que terminen en `ts` ejecute el comando `prettier --write` y a continuación el comando `eslint`, este último comando ejecutará por detrás el `ng lint`. Lo mismo se está definiendo para los otros tipos de archivos, cada uno tiene su comando a ejecutar.
+
 ### Configurando Husky con lint-staged
 
-A continuación agregamos el siguiente comando en el archivo `pre-commit` del `Git Hook`:
+Como ahora nos estamos apoyando de `lint-staged`, vamos a modificar el comando definido en el archivo `pre-commit` para que ejecute el `lint-staged`.
 
 ```
 npx lint-staged
 ```
 
-El comando anterior utilizará las configuraciones definidas en el archivo `.lintstagedrc.json`.
-
-## Reiniciar Visual Studio Code para aplicar cambios
-
-Es importante que luego de que instalemos y configuremos la aplicación con las distintas herramientas de `code quality` reiniciemos el editor de `VS Code` para que se apliquen los cambios.
+El comando anterior utilizará las configuraciones definidas en el archivo `.lintstagedrc.json` para ejecutar los comandos definidos según el archivo que haya sido modificado.
 
 ## Probando ejecución de herramientas
 
