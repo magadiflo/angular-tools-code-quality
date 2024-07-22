@@ -13,11 +13,7 @@ Es una herramienta de formateo de código. Su objetivo principal es asegurarse d
 
 ### Cómo generar configuraciones de prettier
 
-A modo introductorio, vamos a ver cómo podemos generar configuraciones de prettier para usarlo en nuestros proyectos. El primer paso es ir a la siguiente dirección https://prettier.io/playground/ donde observaremos la siguiente interfaz:
-
-![prettier playground](./src/assets/01.prettier-playground.png)
-
-La interfaz anterior está dividito en tres secciones:
+A modo introductorio, vamos a ver cómo podemos generar configuraciones de prettier para usarlo en nuestros proyectos. El primer paso es ir a la siguiente dirección https://prettier.io/playground/ donde observaremos una interfaz dividido en 3 secciones:
 
 1. Configuraciones
 2. Código a la que se aplicarán las configuraciones
@@ -120,9 +116,13 @@ Primero debemos instalar la dependencia de `Prettier` en nuestro VS Code. Luego 
 
 ## Activar Configuración Requerida de Prettier
 
-`Prettier: Require Config`, requiere un archivo de configuración `Prettier` para formatear. Esta configuración le dice a VS Code que formatee el código del proyecto en base a un archivo de configuración de `Prettier` llamada `.prettierrc` (si es que lo tiene) que estará ubicada en la raíz del proyecto. Este archivo de configuración `.prettierrc` tendrá el `.json` que copiamos de la página de playground de prettier.
+`Prettier: Require Config`, requiere un archivo de configuración `Prettier` para formatear. Esta configuración le dice a VS Code que formatee el código del proyecto en base a un archivo de configuración de `Prettier` llamada `.prettierrc` (si es que lo tiene) que estará ubicada en la raíz del proyecto. Este archivo de configuración `.prettierrc` tendrá el `.json` que copiamos de la página de playground de prettier. En otras palabras, si el archivo `.prettierrc` está presente en el proyecto, entonce que formatee el código en base a las reglas que tenga definida en su interior.
 
 ![Require Config](./src/assets/prettier/04.check-require-config.png)
+
+**NOTA**
+
+> En nuestro caso no hemos definido el archivo `.prettierrc` en el proyecto de Angular, por lo tanto, las reglas que aplicará `Prettier` para formatear el código será en base a las reglas que tenga definida la extensión de `Prettier` que instalamos en nuestro `VS Code`. Además, recordar que hemos sido explícitos al seleccionar a `Prettier` como formateador por defecto para el proyecto.
 
 
 ## [Instalando dependencia de ESLint en Angular](https://github.com/angular-eslint/angular-eslint)
