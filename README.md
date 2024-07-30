@@ -205,6 +205,11 @@ src/styles.scss 3ms (unchanged)
 
 Como observamos, todos los archivos está correctamente formateados, por eso es que no se han producido cambios `(unchanged)`.
 
+**IMPORTANTE: La primer vez ejecutar manualmente ESLint y Prettier**
+
+> `La primera vez` sí deberíamos ejecutar los comandos manualmente, por separado (`npm run format` y `ng lint`) para que, tanto el formateo como la corrección del código se aplique a todo el proyecto. Las siguientes veces, dejaremos que en automático `husky` ejecute los comandos que definamos en el archivo `pre-commit`, pero nos vamos a apoyar de la librería `lint-staged` para que ejecute el `formateo` y el `lint` únicamente a aquellos archivos que han cambiado.
+
+
 ## Reiniciar Visual Studio Code para aplicar cambios
 
 En `Visual Studio Code` cuando se instala una dependencia que tenga que ver con el `linter` o con el `formateo`, lo ideal sería reiniciar el editor para que los cambios se apliquen.
